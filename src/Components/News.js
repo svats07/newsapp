@@ -15,35 +15,53 @@ export class News extends Component {
 
 	async componentDidMount() {
 		let url =
-			"https://newsapi.org/v2/top-headlines?country=us&apiKey=ed4eebc5f7bc4d04b037249a25e39f94";
+			"https://newsapi.org/v2/top-headlines?country=us&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&pageSize=20";
 		let data = await fetch(url);
 		let parsedData = await data.json();
-		this.setState({ articles: parsedData.articles });
+		this.setState({
+			articles: parsedData.articles,
+			totalArticles: parsedData.totalResults,
+			page: 1, 
+		});
 	}
 
 	handleNextClick = async () => {
 		console.log("Next");
-
+		
+		let maxPages = Math.ceil(this.state.totalArticles / 20);
+		
+		if (this.state.page >= maxPages) {
+			return;
+		}
+	
 		let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&page=${
 			this.state.page + 1
-		}`;
+		}&pageSize=20`;
 		let data = await fetch(url);
 		let parsedData = await data.json();
-		this.setState({ articles: parsedData.articles });
+		
 		this.setState({
+			articles: parsedData.articles,
 			page: this.state.page + 1,
 		});
 	};
 
-	handlePrevClick = () => {
-		console.log("Prev");
+	handlePrevClick = async  () => {
+		let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&page=${
+			this.state.page - 1
+		}&pageSize=20`
+	let data = await fetch(url);
+	let parsedData = await data.json();
+	this.setState({
+		articles: parsedData.articles,
+		page: this.state.page - 1,	});
 	};
 
 	render() {
 		let defaultImage = "public/Images/Defaultimg.jpg";
 		return (
 			<div className="container my-3">
-				<h1>NewsMonkey - Top Headlines</h1>
+				<h1 className="text-center">NewsMonkey - Top Headlines</h1>
 				<div className="row">
 					{this.state.articles.map((element) => {
 						return (
@@ -83,6 +101,7 @@ export class News extends Component {
 						type="button"
 						className="btn btn-dark"
 						onClick={this.handleNextClick}
+						disabled={this.state.page >= Math.ceil(this.state.totalArticles / 20)}
 					>
 						Next &rarr;
 					</button>
