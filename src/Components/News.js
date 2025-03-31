@@ -24,6 +24,7 @@ export class News extends Component {
 
 	async componentDidMount() {
 		try {
+			if (this.state.loading) return;
 			this.setState({
 				loading: true,
 			});
@@ -58,8 +59,9 @@ export class News extends Component {
 				this.state.page + 1
 			}&pageSize=${this.props.pageSize}`;
 			let data = await fetch(url);
+			let parsedData = await data.json();
 			if (data.ok) {
-				let parsedData = await data.json();
+				
 				this.setState({
 					articles: parsedData.articles,
 					page: this.state.page + 1,
@@ -103,7 +105,7 @@ export class News extends Component {
 			<div className="container my-3">
 				<h1 className="text-center">NewsMonkey - Top Headlines</h1>
 				{this.state.loading && <Spinner />}
-				<div className="row">
+				<div className="row mt-5">
 					{this.state.articles.map((element) => {
 						return (
 							<div className="col-md-4" key={element?.url}>
