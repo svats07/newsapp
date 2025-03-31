@@ -1,9 +1,18 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
+import Spinner from "./Spinner";
 
 export class News extends Component {
-	static propTypes = {};
+	static defaultProps  = {
+		country: 'in',
+		pageSize: 8,
+	};
+
+	static propTypes = {
+		country: PropTypes.string,
+		pageSize: PropTypes.number,
+	};
 	constructor() {
 		super();
 		this.state = {
@@ -14,36 +23,86 @@ export class News extends Component {
 	}
 
 	async componentDidMount() {
-		let url =
-			"https://newsapi.org/v2/top-headlines?country=us&apiKey=ed4eebc5f7bc4d04b037249a25e39f94";
-		let data = await fetch(url);
-		let parsedData = await data.json();
-		this.setState({ articles: parsedData.articles });
+		try {
+			this.setState({
+				loading: true,
+			});
+			let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&pageSize=${this.props.pageSize}`;
+			let data = await fetch(url);
+			let parsedData = await data.json();
+			this.setState({
+				articles: parsedData.articles,
+				totalArticles: parsedData.totalResults,
+				page: 1,
+				loading: false,
+			});
+		} catch (error) {
+			alert(error.message);
+			console.error("Error fetching news:", error);
+		}
 	}
 
 	handleNextClick = async () => {
-		console.log("Next");
+		try {
+			let maxPages = Math.ceil(this.state.totalArticles / this.props.pageSize);
 
-		let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&page=${
-			this.state.page + 1
-		}`;
-		let data = await fetch(url);
-		let parsedData = await data.json();
-		this.setState({ articles: parsedData.articles });
-		this.setState({
-			page: this.state.page + 1,
-		});
+			if (this.state.page >= maxPages) {
+				return;
+			}
+			this.setState({
+				loading: true,
+			});
+			let url = `https://newsapi.org/v2/top-headlines?country=${
+				this.props.country
+			}&category=${this.props.category}&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&page=${
+				this.state.page + 1
+			}&pageSize=${this.props.pageSize}`;
+			let data = await fetch(url);
+			if (data.ok) {
+				let parsedData = await data.json();
+				this.setState({
+					articles: parsedData.articles,
+					page: this.state.page + 1,
+					loading: false,
+				});
+			}
+		} catch (error) {
+			alert(error.message);
+			console.error("Error fetching news HandleNextClick:", error);
+		}
 	};
 
-	handlePrevClick = () => {
-		console.log("Prev");
+	handlePrevClick = async () => {
+		try {
+			this.setState({
+				loading: true,
+			});
+			let url = `https://newsapi.org/v2/top-headlines?country=${
+				this.props.country
+			}&category=${this.props.category}&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&page=${
+				this.state.page - 1
+			}&pageSize=${this.props.pageSize}`;
+			let data = await fetch(url);
+			if (data.ok) {
+				let parsedData = await data.json();
+				this.setState({
+					articles: parsedData.articles,
+					page: this.state.page - 1,
+					loading: false,
+				});
+			}
+		} catch (error) {
+			alert(error.message);
+			console.error("Error fetching news HandlePrevClick:", error);
+		}
 	};
 
 	render() {
 		let defaultImage = "public/Images/Defaultimg.jpg";
 		return (
 			<div className="container my-3">
-				<h1>NewsMonkey - Top Headlines</h1>
+				<h1 className="text-center">NewsMonkey - Top Headlines</h1>
+				{this.state.loading && <Spinner />}
 				<div className="row">
 					{this.state.articles.map((element) => {
 						return (
@@ -83,6 +142,10 @@ export class News extends Component {
 						type="button"
 						className="btn btn-dark"
 						onClick={this.handleNextClick}
+						disabled={
+							this.state.page >=
+							Math.ceil(this.state.totalArticles / this.props.pageSize)
+						}
 					>
 						Next &rarr;
 					</button>
