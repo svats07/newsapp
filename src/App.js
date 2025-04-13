@@ -11,13 +11,13 @@ export default class App extends Component {
 				<Router>
 				<Navbar />
 					<Routes>				
-					<Route exact path="/home" element={<News key="general" pageSize={6} country={"us"} category={"general"} />} />			
-					<Route exact path="/business" element={<News key="business" pageSize={6} country={"us"} category={"business"} />} />			
-					<Route exact path="/entertainment" element={<News key="entertainment" pageSize={6} country={"us"} category={"entertainment"} />} />			
-					<Route exact path="/health" element={<News key="health" pageSize={6} country={"us"} category={"health"} />} />			
-					<Route exact path="/science" element={<News key="science" pageSize={6} country={"us"} category={"science"} />} />			
-					<Route exact path="/sports" element={<News key="sports" pageSize={6} country={"us"} category={"sports"} />} />			
-					<Route exact path="/technology" element={<News key="technology" pageSize={6} country={"us"} category={"technology"} />} />	
+					<Route exact path="/home" element={<News key="general" country={"us"} category={"general"} />} />			
+					<Route exact path="/business" element={<News key="business" country={"us"} category={"business"} />} />			
+					<Route exact path="/entertainment" element={<News key="entertainment" country={"us"} category={"entertainment"} />} />			
+					<Route exact path="/health" element={<News key="health" country={"us"} category={"health"} />} />			
+					<Route exact path="/science" element={<News key="science" country={"us"} category={"science"} />} />			
+					<Route exact path="/sports" element={<News key="sports" country={"us"} category={"sports"} />} />			
+					<Route exact path="/technology" element={<News key="technology" country={"us"} category={"technology"} />} />	
 					</Routes>			
 				</Router>
 			</div>

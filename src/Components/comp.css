@@ -1,0 +1,25 @@
+.news-img {
+    width: 100%;
+    height: 200px; /* or any fixed height */
+    object-fit: cover;
+    display: block;
+  }
+
+  .infyCheck{
+    overflow: hidden !important; /* forces scrollbar always visible */
+  }
+
+  .card:hover {
+    padding: 10px; /* BAD */
+  }
+
+  .card {
+    transition: transform 0.2s ease-in-out;
+  }
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+
+  
+
