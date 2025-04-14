@@ -79,7 +79,7 @@ export class News extends Component {
 
 		return (
 			<div className="container my-3">
-				<h1 className="text-center">NewsMonkey - Top Headlines</h1>
+				<h1 className="containerHead">NewsMonkey - Top Headlines</h1>
 				<InfiniteScroll
 				className="infyCheck"
 					dataLength={this.state.articles.length}
@@ -89,7 +89,7 @@ export class News extends Component {
 				>
 					<div className="row mt-5">
 						{articles.map((element, index) => (
-							<div className="col-md-4 mb-4" key={element.url || `news-${index}`}>
+							<div className="col-md-4 mb-4" key={element.url || index}>
 								<NewsItem
 									title={element.title || "No Title Available"}
 									description={
