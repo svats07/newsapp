@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 import "../Components/comp.css"
 
 export class News extends Component {
@@ -29,9 +30,11 @@ export class News extends Component {
 	}
 
 	async fetchNews() {
+
 		try {
+			this.props.setProgress(10);
 			this.setState({ loading: true });
-			let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=ed4eebc5f7bc4d04b037249a25e39f94&page=1&pageSize=${this.props.pageSize}`;
+			let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
 			let data = await fetch(url);
 			let parsedData = await data.json();
 			this.setState({
@@ -40,6 +43,7 @@ export class News extends Component {
 				page: 1,
 				totalResult: parsedData.totalResults,
 			});
+			this.props.setProgress(100);
 		} catch (error) {
 			alert(error.message);
 			console.error("Error fetching news:", error);
@@ -54,7 +58,7 @@ export class News extends Component {
 		this.setState({ page: this.state.page + 1 });
 		try {
 			this.setState({ loading: true });
-			let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=ed4eebc5f7bc4d04b037249a25e39f94`;
+			let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}`;
 			let data = await fetch(url);
 			let parsedData = await data.json();
 			this.setState({
@@ -69,21 +73,6 @@ export class News extends Component {
 		}
 	};
 
-	handleNextClick = () => {
-		if (
-			this.state.page <
-			Math.ceil(this.state.articles.length / this.props.pageSize)
-		) {
-			this.setState({ page: this.state.page + 1 });
-		}
-	};
-
-	handlePrevClick = () => {
-		if (this.state.page > 1) {
-			this.setState({ page: this.state.page - 1 });
-		}
-	};
-
 	render() {
 		let defaultImage = "public/Images/Defaultimg.jpg";
 		const { articles } = this.state;
@@ -91,7 +80,6 @@ export class News extends Component {
 		return (
 			<div className="container my-3">
 				<h1 className="text-center">NewsMonkey - Top Headlines</h1>
-				{/* {this.state.loading && <Spinner />} */}
 				<InfiniteScroll
 				className="infyCheck"
 					dataLength={this.state.articles.length}
