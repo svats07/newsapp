@@ -23,14 +23,14 @@ export default class App extends Component {
 							exact
 							path="/home"
 							element={
-								<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API} key="general" country={"us"} category={"general"} />
+								<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API} key="general" country={"in"} category={"general"} />
 							}
 						/>
 						<Route
 							exact
 							path="/business"
 							element={
-								<News setProgress={this.setProgress}  apiKey={process.env.REACT_APP_NEWS_API} key="business" country={"us"} category={"business"} />
+								<News setProgress={this.setProgress}  apiKey={process.env.REACT_APP_NEWS_API} key="business" country={"in"} category={"business"} />
 							}
 						/>
 						<Route
@@ -39,7 +39,7 @@ export default class App extends Component {
 							element={
 								<News setProgress={this.setProgress}  apiKey={process.env.REACT_APP_NEWS_API}
 									key="entertainment"
-									country={"us"}
+									country={"in"}
 									category={"entertainment"}
 								/>
 							}
@@ -47,25 +47,25 @@ export default class App extends Component {
 						<Route
 							exact
 							path="/health"
-							element={<News setProgress={this.setProgress}  apiKey={process.env.REACT_APP_NEWS_API} key="health" country={"us"} category={"health"} />}
+							element={<News setProgress={this.setProgress}  apiKey={process.env.REACT_APP_NEWS_API} key="health" country={"in"} category={"health"} />}
 						/>
 						<Route
 							exact
 							path="/science"
 							element={
-								<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API}  key="science" country={"us"} category={"science"} />
+								<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API}  key="science" country={"in"} category={"science"} />
 							}
 						/>
 						<Route
 							exact
 							path="/sports"
-							element={<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API}  key="sports" country={"us"} category={"sports"} />}
+							element={<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API}  key="sports" country={"in"} category={"sports"} />}
 						/>
 						<Route
 							exact
 							path="/technology"
 							element={
-								<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API}  key="technology" country={"us"} category={"technology"} />
+								<News setProgress={this.setProgress} apiKey={process.env.REACT_APP_NEWS_API}  key="technology" country={"in"} category={"technology"} />
 							}
 						/>
 					</Routes>
