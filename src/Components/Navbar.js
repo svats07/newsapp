@@ -1,22 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Filter from "./Filter";
+
 
 export class Navbar extends Component {
 	
-	constructor(props) {
-		super(props);
-		this.state = {
-		  openFilter: false
-		};
-		this.toggleFilter = this.toggleFilter.bind(this);
-	  }
 	
-	  toggleFilter() {
-		this.setState((prevState) => ({
-		  openFilter: !prevState.openFilter
-		}));
-	  }
 	  
 	render() {
 		return (
@@ -72,21 +60,11 @@ export class Navbar extends Component {
 										Technology
 									</Link>
 								</li>
-								<li className="nav-item">
-									<button
-										className="nav-link btn btn-link text-decoration-none"
-										onClick={this.toggleFilter}
-									>
-										Filter
-									</button>
-								</li>
 							</ul>
 						</div>
 					</div>
 				</nav>
-				<div className="container mt-5 pt-5">
-					{this.state.openFilter && <Filter />}
-				</div>
+				
 			</div>
 		);
 	}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Select from "react-dropdown-select";
 
 export class Filter extends Component {
 	componentDidMount() {
@@ -9,26 +10,6 @@ export class Filter extends Component {
 	}
 
 	render() {
-		const categories = [
-			"business",
-			"crime",
-			"domestic",
-			"education",
-			"entertainment",
-			"environment",
-			"food",
-			"health",
-			"lifestyle",
-			"other",
-			"politics",
-			"science",
-			"sports",
-			"technolog",
-			"top",
-			"tourism",
-			"world",
-		];
-		
 		return (
 			<div
 				className="modal fade"
@@ -55,37 +36,43 @@ export class Filter extends Component {
 								<label htmlFor="exampleDataList" className="form-label">
 									Country
 								</label>
-								<input
-									className="form-control"
-									list="datalistOptions"
-									id="exampleDataList"
-									placeholder="Type to search..."
+								<Select
+									// options={data.countries}
+									labelField="name"
+									valueField="code"
+									placeholder="Select Country"
+									// values={selectedCountry}
+									// onChange={setSelectedCountry}
+									style={{ minWidth: "200px" }}
 								/>
-								<datalist id="datalistOptions">
-									<option value="San Francisco" />
-									<option value="New York" />
-									<option value="Seattle" />
-									<option value="Los Angeles" />
-									<option value="Chicago" />
-								</datalist>
 							</div>
 							<div>
 								<label htmlFor="exampleDataList" className="form-label">
 									Category
 								</label>
-								<input
-									className="form-control"
-									list="datalistOptions"
-									id="exampleDataList"
-									placeholder="Type to search..."
+								<Select
+									// options={data.countries}
+									labelField="name"
+									valueField="code"
+									placeholder="Select Country"
+									// values={selectedCountry}
+									// onChange={setSelectedCountry}
+									style={{ minWidth: "200px" }}
 								/>
-								<datalist id="datalistOptions">
-									<option value="San Francisco" />
-									<option value="New York" />
-									<option value="Seattle" />
-									<option value="Los Angeles" />
-									<option value="Chicago" />
-								</datalist>
+							</div>
+							<div>
+								<label htmlFor="exampleDataList" className="form-label">
+									Languages
+								</label>
+								<Select
+									// options={data.countries}
+									labelField="name"
+									valueField="code"
+									placeholder="Select Country"
+									// values={selectedCountry}
+									// onChange={setSelectedCountry}
+									style={{ minWidth: "200px" }}
+								/>
 							</div>
 						</div>
 						<div className="modal-footer">

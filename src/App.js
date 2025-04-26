@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import News from "./Components/News";
 import LoadingBar from "react-top-loading-bar";
+
 export default class App extends Component {
 	state = {
 		progress: 0
