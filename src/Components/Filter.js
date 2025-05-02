@@ -13,7 +13,9 @@ export class Filter extends Component {
 	}
 
 	componentDidMount() {
-		const modal = new window.bootstrap.Modal(document.getElementById("exampleModal"));
+		const modal = new window.bootstrap.Modal(
+			document.getElementById("exampleModal")
+		);
 		modal.show();
 		this.modal = modal;
 	}
@@ -52,19 +54,26 @@ export class Filter extends Component {
 									valueField="code"
 									placeholder="Select Country"
 									values={selectedCountry}
-									onChange={(values) => this.setState({ selectedCountry: values })}
+									onChange={(values) =>
+										this.setState({ selectedCountry: values })
+									}
 								/>
 							</div>
 
 							<div className="mb-3">
 								<label className="form-label">Category</label>
 								<Select
-									options={data.categories}
+									options={data.categories.map((cat) => ({
+										name: cat,
+										code: cat,
+									}))}
 									labelField="name"
 									valueField="code"
 									placeholder="Select Category"
 									values={selectedCategory}
-									onChange={(values) => this.setState({ selectedCategory: values })}
+									onChange={(values) =>
+										this.setState({ selectedCategory: values })
+									}
 								/>
 							</div>
 
@@ -76,7 +85,9 @@ export class Filter extends Component {
 									valueField="code"
 									placeholder="Select Language"
 									values={selectedLanguage}
-									onChange={(values) => this.setState({ selectedLanguage: values })}
+									onChange={(values) =>
+										this.setState({ selectedLanguage: values })
+									}
 								/>
 							</div>
 						</div>
@@ -85,7 +96,19 @@ export class Filter extends Component {
 								type="button"
 								className="btn btn-primary"
 								onClick={() => {
-									console.log("Selected Filters:", this.state);
+									const {
+										selectedCountry,
+										selectedCategory,
+										selectedLanguage,
+									} = this.state;
+
+									if (this.props.onApplyFilters) {
+										this.props.onApplyFilters({
+											country: selectedCountry[0]?.code || "",
+											category: selectedCategory[0]?.code || "",
+											language: selectedLanguage[0]?.code || "",
+										});
+									}
 									this.modal.hide();
 								}}
 							>
