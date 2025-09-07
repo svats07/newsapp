@@ -95,7 +95,8 @@ export class News extends Component {
 	};
 
 	fetchMoreData = () => {
-		const { allArticles, visibleArticles, currentIndex, chunkSize } = this.state;
+		const { allArticles, visibleArticles, currentIndex, chunkSize } =
+			this.state;
 
 		if (allArticles.length === 0) return;
 
@@ -138,25 +139,28 @@ export class News extends Component {
 
 		return (
 			<div className="container my-3">
-				<h1
-					className="containerHead"
-					style={{ marginTop: "80px", cursor: "pointer" }}
-					onClick={() => {
-						window.dispatchEvent(new Event("resetFilters"));
-					}}
-				>
-					<Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
-						NewsMonkey - Top Headlines
-					</Link>
-				</h1>
+					<h1
+						className="containerHead position-sticky"
+						style={{ marginTop: "80px", cursor: "pointer" }}
+						onClick={() => {
+							window.dispatchEvent(new Event("resetFilters"));
+						}}
+					>
+						<Link
+							to="/home"
+							style={{ textDecoration: "none", color: "inherit" }}
+						>
+							NewsMonkey - Top Headlines
+						</Link>
+					</h1>
 
-				<div className="d-flex align-items-center justify-content-end">
-					<img src={filterIcon} alt="Filter" width={24} height={24} />
-					<button className="filterBtn" onClick={this.toggleFilter}>
-						FILTER
-					</button>
-				</div>
-
+					<div className="d-flex align-items-center justify-content-end position-sticky">
+						<img src={filterIcon} alt="Filter" width={24} height={24} />
+						<button className="filterBtn" onClick={this.toggleFilter}>
+							FILTER
+						</button>
+					</div>
+						
 				<InfiniteScroll
 					className="infyCheck"
 					dataLength={visibleArticles.length}
@@ -174,12 +178,16 @@ export class News extends Component {
 										imgUrl={element.image_url || element.icon || defaultImage}
 										newsUrl={element.link || "#"}
 										author={element.creator || "Unknown"}
-										date={new Date(element.pubDate || new Date()).toDateString()}
+										date={new Date(
+											element.pubDate || new Date()
+										).toDateString()}
 									/>
 								</div>
 							))
 						) : !loading ? (
-							<h5 className="text-center">No news found for selected filters.</h5>
+							<h5 className="text-center">
+								No news found for selected filters.
+							</h5>
 						) : null}
 					</div>
 				</InfiniteScroll>
